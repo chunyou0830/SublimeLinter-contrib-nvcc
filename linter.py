@@ -13,6 +13,7 @@
 import os
 import shlex
 import string
+import tempfile
 import sublime
 from SublimeLinter.lint import Linter, util
 
@@ -70,6 +71,10 @@ class Nvcc(Linter):
         include_dirs = settings.get('include_dirs', [])
         result += apply_template(' '.join([' -I ' + shlex.quote(include)
                                           for include in include_dirs]))
+
+        tempdir = tempfile.mkdtemp()
+        tempfilename = os.path.join(tempdir, 'nvcc-linter-output.ii')
+        result += ' -o {} '.format(tempfilename)
 
         return result + ' @'
 
