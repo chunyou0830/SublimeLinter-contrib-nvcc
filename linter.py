@@ -19,6 +19,7 @@ from SublimeLinter.lint import Linter, util
 
 
 def get_project_folder():
+    """Get project folder of current file or current file's dir."""
     proj_file = sublime.active_window().project_file_name()
     if proj_file:
         return os.path.dirname(proj_file)
@@ -30,6 +31,7 @@ def get_project_folder():
 
 
 def apply_template(s):
+    """Substitude '${project_folder}' in string."""
     mapping = {
         "project_folder": get_project_folder()
     }
@@ -60,6 +62,7 @@ class Nvcc(Linter):
     def cmd(self):
         """
         Return the command line to execute.
+
         We override this method, so we can add extra flags and include paths
         based on the 'include_dirs' and 'extra_flags' settings.
         """
@@ -79,10 +82,7 @@ class Nvcc(Linter):
         return result + ' @'
 
     def split_match(self, match):
-        """
-        Filter filename
-        """
-
+        """Filter matches that matches current filename."""
         m = list(super().split_match(match))
         filename = m[0].group('filename') if m[0] else ''
         if filename and \
