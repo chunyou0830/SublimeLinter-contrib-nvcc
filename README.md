@@ -1,7 +1,7 @@
 SublimeLinter-contrib-nvcc
 ================================
 
-[![Build Status](https://travis-ci.org/SublimeLinter/SublimeLinter-contrib-nvcc.svg?branch=master)](https://travis-ci.org/SublimeLinter/SublimeLinter-contrib-nvcc)
+[![Build Status](https://travis-ci.org/blahgeek/SublimeLinter-contrib-nvcc.svg?branch=master)](https://travis-ci.org/SublimeLinter/SublimeLinter-contrib-nvcc)
 
 This linter plugin for [SublimeLinter][docs] provides an interface to [nvcc](http://docs.nvidia.com/cuda/cuda-compiler-driver-nvcc/). It will be used with files that have the “cuda-c++/cuda-c/cuda” syntax.
 
