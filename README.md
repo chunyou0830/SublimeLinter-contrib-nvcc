@@ -11,7 +11,9 @@ SublimeLinter 3 must be installed in order to use this plugin. If SublimeLinter 
 ### Linter installation
 Before using this plugin, you must ensure that CUDA Toolkit is installed on your system.
 
-**Note:** This plugin has only been tested on CUDA 8.0.
+Also, you must install [CUDA C++](https://github.com/harrism/sublimetext-cuda-cpp) plugin to make sublimetext detect CUDA syntax.
+
+**Note:** This plugin has only been tested on CUDA 8.0. Contributes and feedbacks are welcome.
 
 ### Linter configuration
 In order for `nvcc` to be executed by SublimeLinter, you must ensure that its path is available to SublimeLinter. Before going any further, please read and follow the steps in [“Finding a linter executable”](http://sublimelinter.readthedocs.org/en/latest/troubleshooting.html#finding-a-linter-executable) through “Validating your PATH” in the documentation.
