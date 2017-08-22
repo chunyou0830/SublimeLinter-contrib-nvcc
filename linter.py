@@ -75,7 +75,7 @@ class Nvcc(Linter):
         result += apply_template(' '.join([' -I ' + shlex.quote(include)
                                           for include in include_dirs]))
 
-        tempdir = tempfile.mkdtemp()
+        tempdir = tempfile.gettempdir()
         tempfilename = os.path.join(tempdir, 'nvcc-linter-output.ii')
         result += ' -o {} '.format(tempfilename)
 
