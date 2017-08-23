@@ -72,6 +72,8 @@ class Nvcc(Linter):
         result += apply_template(settings.get('extra_flags', ''))
 
         include_dirs = settings.get('include_dirs', [])
+        if self.filename:
+            include_dirs.append(os.path.dirname(self.filename))
         result += apply_template(' '.join([' -I ' + shlex.quote(include)
                                           for include in include_dirs]))
 
