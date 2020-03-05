@@ -41,9 +41,9 @@ def apply_template(s):
 
 class Nvcc(Linter):
     """Provides an interface to nvcc."""
-    
+
     name = 'nvcc'
-    
+
     # syntax = ('cuda-c++', 'cuda-c', 'cuda') # Discontinued
     # executable = 'nvcc'
 
@@ -62,7 +62,6 @@ class Nvcc(Linter):
 
     cmd = 'nvcc'
 
-    
     def cmd(self):
         """
         Return the command line to execute.
@@ -87,7 +86,6 @@ class Nvcc(Linter):
 
         # return result + ' @'
         return 'nvcc'
-    
 
     def split_match(self, match):
         """Filter matches that matches current filename."""
