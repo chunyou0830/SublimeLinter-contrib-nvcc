@@ -10,11 +10,12 @@
 
 """This module exports the Nvcc plugin class."""
 
-import os
-import shlex
-import string
-import tempfile
-import sublime
+# import os
+# import shlex
+# import string
+# import tempfile
+# import sublime
+import sublime_plugin
 from SublimeLinter.lint import Linter, util
 
 OUTPUT_RE = (r'(?P<filename>^.+?):?\(?(?P<line>\d+)\)?:((?P<col>\d+):)?'
