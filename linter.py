@@ -53,9 +53,9 @@ class Nvcc(Linter):
     error_stream = util.STREAM_STDERR
 
     defaults = {
-        'include_dirs': [],
-        'extra_flags': '',
         'selector': 'source.cu'
+        #'include_dirs': [],
+        #'extra_flags': ''
     }
 
     cmd = 'nvcc'
