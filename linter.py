@@ -17,26 +17,9 @@ import tempfile
 import sublime
 from SublimeLinter.lint import Linter, util
 
-
-def get_project_folder():
-    """Get project folder of current file or current file's dir."""
-    proj_file = sublime.active_window().project_file_name()
-    if proj_file:
-        return os.path.dirname(proj_file)
-    # Use current file's folder when no project file is opened.
-    proj_file = sublime.active_window().active_view().file_name()
-    if proj_file:
-        return os.path.dirname(proj_file)
-    return '.'
-
-
-def apply_template(s):
-    """Substitude '${project_folder}' in string."""
-    mapping = {
-        "project_folder": get_project_folder()
-    }
-    templ = string.Template(s)
-    return templ.safe_substitute(mapping)
+OUTPUT_RE = (r'(?P<filename>^.+?):?\(?(?P<line>\d+)\)?:((?P<col>\d+):)?'
+             r'\s*\w*\s*((?P<error>error)|(?P<warning>warning)):'
+             r'\s*(?P<message>.+)')
 
 
 class Nvcc(Linter):
@@ -44,12 +27,7 @@ class Nvcc(Linter):
 
     name = 'nvcc'
 
-    # syntax = ('cuda-c++', 'cuda-c', 'cuda') # Discontinued
-    # executable = 'nvcc'
-
-    regex = (r'(?P<filename>^.+?):?\(?(?P<line>\d+)\)?:((?P<col>\d+):)?'
-             r'\s*\w*\s*((?P<error>error)|(?P<warning>warning)):'
-             r'\s*(?P<message>.+)')
+    regex = OUTPUT_RE
 
     tempfile_suffix = 'cu'
     error_stream = util.STREAM_STDERR
@@ -62,36 +40,14 @@ class Nvcc(Linter):
 
     cmd = 'nvcc'
 
-    def cmd(self):
-        """
-        Return the command line to execute.
 
-        We override this method, so we can add extra flags and include paths
-        based on the 'include_dirs' and 'extra_flags' settings.
-        """
-        result = 'nvcc -cuda '
+class SublimeLinterGccRunTests(sublime_plugin.WindowCommand):
+    """
+    To do unittests, run the following command in ST's console:
+    window.run_command('sublime_linter_gcc_run_tests')
+    """
 
-        settings = self.get_view_settings()
-        result += apply_template(settings.get('extra_flags', ''))
+    def run(self):
+        from .tests.regex_tests import run_tests
 
-        include_dirs = settings.get('include_dirs', [])
-        if self.filename:
-            include_dirs.append(os.path.dirname(self.filename))
-        result += apply_template(' '.join([' -I ' + shlex.quote(include)
-                                          for include in include_dirs]))
-
-        tempdir = tempfile.gettempdir()
-        tempfilename = os.path.join(tempdir, 'nvcc-linter-output.ii')
-        result += ' -o {} '.format(tempfilename)
-
-        # return result + ' @'
-        return 'nvcc'
-
-    def split_match(self, match):
-        """Filter matches that matches current filename."""
-        m = list(super().split_match(match))
-        filename = m[0].group('filename') if m[0] else ''
-        if filename and \
-           os.path.basename(filename) != os.path.basename(self.filename):
-            m[0] = None
-        return m
+        run_tests(Nvcc.regex)
