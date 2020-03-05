@@ -42,7 +42,7 @@ def apply_template(s):
 class Nvcc(Linter):
     """Provides an interface to nvcc."""
 
-    syntax = ('cuda-c++', 'cuda-c', 'cuda')
+    # syntax = ('cuda-c++', 'cuda-c', 'cuda') # Discontinued
     executable = 'nvcc'
 
     regex = (r'(?P<filename>^.+?):?\(?(?P<line>\d+)\)?:((?P<col>\d+):)?'
@@ -54,7 +54,8 @@ class Nvcc(Linter):
 
     defaults = {
         'include_dirs': [],
-        'extra_flags': ''
+        'extra_flags': '',
+        'selector': 'source.cu'
     }
 
     cmd = 'nvcc'
