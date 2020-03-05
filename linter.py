@@ -82,7 +82,8 @@ class Nvcc(Linter):
         tempfilename = os.path.join(tempdir, 'nvcc-linter-output.ii')
         result += ' -o {} '.format(tempfilename)
 
-        return result + ' @'
+        # return result + ' @'
+        return 'nvcc'
 
     def split_match(self, match):
         """Filter matches that matches current filename."""
