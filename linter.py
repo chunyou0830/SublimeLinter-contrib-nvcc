@@ -1,45 +1,25 @@
-#
-# linter.py
-# Linter for SublimeLinter3, a code checking framework for Sublime Text 3
-#
-# Written by BlahGeek
-# Copyright (c) 2017
-#
-# License: MIT
-#
-
-"""This module exports the Nvcc plugin class."""
-
-# import os
-# import shlex
-# import string
-# import tempfile
-# import sublime
+from SublimeLinter.lint import Linter
+import os
+import re
+import sublime
 import sublime_plugin
-from SublimeLinter.lint import Linter, util
+import tempfile
 
-OUTPUT_RE = (r'(?P<filename>^.+?):?\(?(?P<line>\d+)\)?:((?P<col>\d+):)?'
+OUTPUT_RE = re.compile(r'(?P<filename>^.+?):?\(?(?P<line>\d+)\)?:((?P<col>\d+):)?'
              r'\s*\w*\s*((?P<error>error)|(?P<warning>warning)):'
              r'\s*(?P<message>.+)')
 
 
 class Nvcc(Linter):
-    """Provides an interface to nvcc."""
-
-    name = 'nvcc'
-
+    name = "nvcc"
+    cmd = "nvcc"
     regex = OUTPUT_RE
-
-    tempfile_suffix = 'cu'
-    error_stream = util.STREAM_STDERR
+    multiline = True
+    on_stderr = None
 
     defaults = {
-        'selector': 'source.cu'
-        # 'include_dirs': [],
-        # 'extra_flags': ''
+        "selector": "source.cu",
     }
-
-    cmd = 'nvcc'
 
 
 class SublimeLinterGccRunTests(sublime_plugin.WindowCommand):
