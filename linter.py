@@ -41,9 +41,10 @@ def apply_template(s):
 
 class Nvcc(Linter):
     """Provides an interface to nvcc."""
-
+    name = 'nvcc'
+    
     # syntax = ('cuda-c++', 'cuda-c', 'cuda') # Discontinued
-    executable = 'nvcc'
+    # executable = 'nvcc'
 
     regex = (r'(?P<filename>^.+?):?\(?(?P<line>\d+)\)?:((?P<col>\d+):)?'
              r'\s*\w*\s*((?P<error>error)|(?P<warning>warning)):'
@@ -60,6 +61,7 @@ class Nvcc(Linter):
 
     cmd = 'nvcc'
 
+    
     def cmd(self):
         """
         Return the command line to execute.
@@ -82,7 +84,9 @@ class Nvcc(Linter):
         tempfilename = os.path.join(tempdir, 'nvcc-linter-output.ii')
         result += ' -o {} '.format(tempfilename)
 
-        return result + ' @'
+        # return result + ' @'
+        return 'nvcc'
+    
 
     def split_match(self, match):
         """Filter matches that matches current filename."""
