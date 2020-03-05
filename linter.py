@@ -54,8 +54,8 @@ class Nvcc(Linter):
 
     defaults = {
         'selector': 'source.cu'
-        #'include_dirs': [],
-        #'extra_flags': ''
+        # 'include_dirs': [],
+        # 'extra_flags': ''
     }
 
     cmd = 'nvcc'
