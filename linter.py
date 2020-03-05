@@ -63,6 +63,7 @@ class Nvcc(Linter):
     def cmd(self):
         """
         Return the command line to execute.
+        
         We override this method, so we can add extra flags and include paths
         based on the 'include_dirs' and 'extra_flags' settings.
         """
