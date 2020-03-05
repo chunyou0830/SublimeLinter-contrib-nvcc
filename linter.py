@@ -41,6 +41,7 @@ def apply_template(s):
 
 class Nvcc(Linter):
     """Provides an interface to nvcc."""
+    
     name = 'nvcc'
     
     # syntax = ('cuda-c++', 'cuda-c', 'cuda') # Discontinued
