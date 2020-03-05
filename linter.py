@@ -53,7 +53,7 @@ class Nvcc(Linter):
     error_stream = util.STREAM_STDERR
 
     defaults = {
-        'selector': 'source.cuda-c++',
+        'selector': 'source.cuda-c++, source.cuda-c, source.cuda',
         'include_dirs': [],
         'extra_flags': '',
     }
